@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+
+  body {
+    @apply bg-ink-950 text-gray-300 antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  ::selection {
+    @apply bg-electric-500/30 text-electric-100;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-ink-900;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-ink-700 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-electric-600;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-ink-850/60 backdrop-blur-sm border border-white/5 rounded-2xl;
+  }
+
+  .glass-card-hover {
+    @apply transition-all duration-300 hover:border-electric-500/40 hover:bg-ink-800/60 hover:-translate-y-1;
+  }
+
+  .section-padding {
+    @apply px-5 sm:px-8 lg:px-16 xl:px-24;
+  }
+
+  .section-title {
+    @apply text-3xl sm:text-4xl font-bold text-white mb-2;
+  }
+
+  .section-subtitle {
+    @apply text-gray-500 text-sm sm:text-base mb-12;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-electric-400 via-electric-300 to-accent-400 bg-clip-text text-transparent;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-medium text-white bg-electric-600 hover:bg-electric-500 transition-all duration-300 hover:shadow-lg hover:shadow-electric-500/30 hover:-translate-y-0.5;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-medium text-gray-200 bg-ink-700/60 border border-white/10 hover:border-electric-500/40 hover:bg-ink-600/60 transition-all duration-300 hover:-translate-y-0.5;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-medium text-gray-400 hover:text-electric-300 transition-all duration-300;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-ink-700/60 border border-white/5 text-gray-300;
+  }
+
+  .badge-purple {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-accent-500/10 border border-accent-500/20 text-accent-300;
+  }
+
+  .badge-blue {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-electric-500/10 border border-electric-500/20 text-electric-300;
+  }
+}
+
+@layer utilities {
+  .text-shadow-glow {
+    text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+  }
+
+  .grid-pattern {
+    background-image:
+      linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .dot-pattern {
+    background-image: radial-gradient(rgba(59, 130, 246, 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+}
