@@ -4,6 +4,7 @@ import About from '@/components/About';
 import WorkExperience from '@/components/WorkExperience';
 import Skills from '@/components/Skills';
 import Projects from '@/components/Projects';
+import Certifications from '@/components/Certifications';
 import TestingWorkflow from '@/components/TestingWorkflow';
 import Coursework from '@/components/Coursework';
 import Education from '@/components/Education';
@@ -20,6 +21,7 @@ export default function App() {
         <WorkExperience />
         <Skills />
         <Projects />
+        <Certifications />
         <TestingWorkflow />
         <Coursework />
         <Education />

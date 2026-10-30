@@ -20,6 +20,7 @@ export const navLinks = [
   { label: 'Experience', href: '#experience' },
   { label: 'Skills', href: '#skills' },
   { label: 'Projects', href: '#projects' },
+  { label: 'Certifications', href: '#certifications' },
   { label: 'Education', href: '#education' },
   { label: 'Contact', href: '#contact' },
 ];
@@ -96,6 +97,11 @@ export const skillCategories = [
     title: 'Methodologies',
     icon: 'GitBranch',
     skills: ['Agile', 'Scrum', 'SDLC', 'STLC'],
+  },
+  {
+    title: 'Performance Testing',
+    icon: 'Gauge',
+    skills: ['Grafana k6', 'JavaScript', 'Node.js'],
   },
 ];
 
@@ -242,6 +248,45 @@ export const projects = [
     github: 'https://github.com/tanvir17th/blog-api-management',
     typeColor: 'purple',
   },
+  {
+    title: 'dMoney Web Portal E2E Automation Suite',
+    date: '2026',
+    technologies: ['Playwright', 'TypeScript', 'JavaScript', 'Node.js', 'imap-simple', 'mailparser', 'dotenv'],
+    type: 'Individual Project',
+    description:
+      'An End-to-End (E2E) automated testing framework built for the dMoney web application. The suite automates complete financial workflows across different user roles (Admin, System, Agent, and Customer). Key capabilities include dynamic account registration, admin user activation, system-to-agent funding, live Gmail IMAP integration for automated 4-digit OTP retrieval and password reset links, Cash In transactions, statement date-range filtering, and exporting transaction records to local CSV files.',
+    testingCoverage: [
+      'Multi-Role Workflows (Admin, System, Agent, Customer)',
+      'Dynamic Account Registration',
+      'Admin User Activation',
+      'System-to-Agent Funding',
+      'Gmail IMAP OTP Retrieval',
+      'Password Reset Automation',
+      'Cash In Transactions',
+      'Statement Date-Range Filtering',
+      'CSV Export',
+    ],
+    github: 'https://github.com/tanvir17th/dmoney-playwright-automation',
+    typeColor: 'blue',
+  },
+  {
+    title: 'dMoney API Load & Performance Testing Suite (Grafana k6)',
+    date: '2026',
+    technologies: ['Grafana k6', 'JavaScript', 'Node.js', 'REST API', 'JWT', 'k6-reporter'],
+    type: 'Individual Project',
+    description:
+      'Designed and implemented an automated performance and stress testing framework for dMoney, a Fintech REST API application supporting multi-role transactions (System, Admin, Agent, Customer, and Merchant). The project evaluates system scalability, throughput, and error rates under multi-phase concurrent Virtual User (VU) traffic using Grafana k6. It includes dynamic JWT authentication handling, dynamic OTP retrieval, automated agent/customer wallet balance management, custom performance metrics tracking (SendMoney, Deposit, and Payment success rates), and automated HTML test report generation.',
+    testingCoverage: [
+      'Multi-Phase Dynamic Load Profiles (2 to 8 VUs)',
+      'Automated Auth Workflow (Admin Login, OTP, JWT)',
+      'Custom Performance Thresholds (Error <10%, p(95) <1000ms)',
+      'Wallet Balance & Limit Management',
+      'Automated HTML Reporting (k6-reporter)',
+      'Custom Metrics (Rate, Trend)',
+    ],
+    github: 'https://github.com/tanvir17th/dmoney-k6-test',
+    typeColor: 'purple',
+  },
 ];
 
 export const testingWorkflow = [
@@ -264,6 +309,16 @@ export const coursework = [
   'Database Management Systems',
   'Programming in Python',
   'Artificial Intelligence',
+];
+
+export const certifications = [
+  {
+    name: 'Full Stack SQA/SDET',
+    issuer: 'Road To SDET',
+    issueDate: 'October 2026',
+    credentialId: 'MTA58488',
+    credentialUrl: 'https://roadtocareer.net/api/images/certificates/Md-Tanvir-Ahamed--MTA58488.png?v=1793351099992',
+  },
 ];
 
 export const education = {

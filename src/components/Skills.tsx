@@ -10,6 +10,7 @@ import {
   Wrench,
   Database,
   GitBranch,
+  Gauge,
   type LucideIcon,
 } from 'lucide-react';
 import { skillCategories } from '@/data/portfolio';
@@ -25,6 +26,7 @@ const iconMap: Record<string, LucideIcon> = {
   Wrench,
   Database,
   GitBranch,
+  Gauge,
 };
 
 export default function Skills() {
