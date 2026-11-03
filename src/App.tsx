@@ -4,10 +4,10 @@ import About from '@/components/About';
 import WorkExperience from '@/components/WorkExperience';
 import Skills from '@/components/Skills';
 import Projects from '@/components/Projects';
-import Certifications from '@/components/Certifications';
 import TestingWorkflow from '@/components/TestingWorkflow';
 import Coursework from '@/components/Coursework';
 import Education from '@/components/Education';
+import Certifications from '@/components/Certifications';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 
@@ -21,10 +21,10 @@ export default function App() {
         <WorkExperience />
         <Skills />
         <Projects />
-        <Certifications />
         <TestingWorkflow />
         <Coursework />
         <Education />
+        <Certifications />
         <Contact />
       </main>
       <Footer />
