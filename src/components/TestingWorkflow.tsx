@@ -1,5 +1,8 @@
+import { Fragment } from 'react';
 import { motion } from 'framer-motion';
 import {
+  ArrowRight,
+  ArrowLeft,
   FileSearch,
   ClipboardList,
   PenTool,
@@ -26,7 +29,7 @@ const iconMap: Record<string, LucideIcon> = {
 
 export default function TestingWorkflow() {
   return (
-    <section className="relative py-24 section-padding">
+    <section id="workflow" className="relative py-24 section-padding">
       <div className="absolute inset-0 dot-pattern opacity-30" />
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -45,31 +48,28 @@ export default function TestingWorkflow() {
         </motion.div>
 
         {/* Desktop: horizontal flow */}
-        <div className="hidden lg:flex flex-col items-center gap-0">
-          <div className="flex items-start gap-4 w-full">
-            {testingWorkflow.slice(0, 4).map((step, i) => (
-              <WorkflowCard key={step.title} step={step} index={i} />
+        <div className="hidden lg:grid grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] items-center gap-x-3 gap-y-4">
+          {testingWorkflow.slice(0, 4).map((step, i) => (
+            <Fragment key={step.title}>
+              <WorkflowCard step={step} index={i} />
+              {i < 3 && <FlowArrow Icon={ArrowRight} delay={i * 0.1 + 0.2} />}
+            </Fragment>
+          ))}
+
+          <div className="col-start-7 flex justify-center">
+            <FlowArrow Icon={ArrowDown} delay={0.5} />
+          </div>
+
+          {testingWorkflow
+            .slice(4)
+            .map((step, i) => ({ step, index: 4 + i }))
+            .reverse()
+            .map(({ step, index }, col) => (
+              <Fragment key={step.title}>
+                <WorkflowCard step={step} index={index} />
+                {col < 3 && <FlowArrow Icon={ArrowLeft} delay={index * 0.1 + 0.2} />}
+              </Fragment>
             ))}
-          </div>
-          <div className="flex items-center gap-4 w-full">
-            <div className="flex-1 flex justify-end pr-[calc(50%-3rem)]">
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-                className="text-electric-400"
-              >
-                <ArrowDown size={24} />
-              </motion.div>
-            </div>
-            <div className="w-24" />
-          </div>
-          <div className="flex items-start gap-4 w-full flex-row-reverse">
-            {testingWorkflow.slice(4).map((step, i) => (
-              <WorkflowCard key={step.title} step={step} index={4 + i} />
-            ))}
-          </div>
         </div>
 
         {/* Mobile/Tablet: vertical timeline */}
@@ -124,9 +124,9 @@ function WorkflowCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="flex-1 group"
+      className="group h-full"
     >
-      <div className="glass-card glass-card-hover p-5 text-center relative">
+      <div className="glass-card glass-card-hover p-5 text-center relative h-full">
         <div className="absolute -top-3 -right-3 w-7 h-7 rounded-full bg-electric-600 text-white text-xs font-bold flex items-center justify-center shadow-lg shadow-electric-600/30">
           {index + 1}
         </div>
@@ -135,11 +135,21 @@ function WorkflowCard({
         </div>
         <h3 className="text-sm font-semibold text-white leading-tight">{step.title}</h3>
       </div>
-      {index < 3 && (
-        <div className="hidden flex items-center justify-center mt-0">
-          <div className="h-px w-full bg-gradient-to-r from-electric-500/30 to-transparent" />
-        </div>
-      )}
+    </motion.div>
+  );
+}
+
+function FlowArrow({ Icon, delay }: { Icon: LucideIcon; delay: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.6 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.3, delay }}
+      className="text-electric-400/70"
+      aria-hidden="true"
+    >
+      <Icon size={22} />
     </motion.div>
   );
 }

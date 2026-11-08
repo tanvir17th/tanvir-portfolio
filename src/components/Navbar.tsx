@@ -15,13 +15,16 @@ export default function Navbar() {
       const sections = navLinks.map((l) => l.href.slice(1));
       const scrollPos = window.scrollY + 120;
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
-        if (el && el.offsetTop <= scrollPos) {
-          setActiveSection(sections[i]);
-          break;
+      let current = sections[0];
+      let currentTop = -Infinity;
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= scrollPos && el.offsetTop > currentTop) {
+          current = id;
+          currentTop = el.offsetTop;
         }
       }
+      setActiveSection(current);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -50,6 +53,7 @@ export default function Navbar() {
         <button
           onClick={() => handleNavClick('#home')}
           className="flex items-center gap-2 group"
+          aria-label="Back to top"
         >
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-electric-600 to-electric-800 flex items-center justify-center font-bold text-white text-lg shadow-lg shadow-electric-600/20 group-hover:shadow-electric-500/40 transition-all duration-300">
             TA
@@ -85,7 +89,8 @@ export default function Navbar() {
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="md:hidden w-10 h-10 flex items-center justify-center rounded-lg text-gray-300 hover:text-white hover:bg-ink-700/60 transition-colors"
-          aria-label="Toggle menu"
+          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={mobileOpen}
         >
           {mobileOpen ? <X size={22} /> : <Menu size={22} />}
         </button>

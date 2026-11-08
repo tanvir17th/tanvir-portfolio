@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Github, ExternalLink, Calendar, User, Users, CheckCircle2 } from 'lucide-react';
+import { Github, Calendar, User, Users, CheckCircle2 } from 'lucide-react';
 import { projects } from '@/data/portfolio';
 
 export default function Projects() {
@@ -27,7 +27,7 @@ export default function Projects() {
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.6, delay: i * 0.15 }}
+              transition={{ duration: 0.6, delay: (i % 3) * 0.15 }}
               className="glass-card glass-card-hover p-6 flex flex-col group"
             >
               {/* Header */}
@@ -95,26 +95,15 @@ export default function Projects() {
               {/* Buttons */}
               <div className="mt-auto flex gap-2 pt-4 border-t border-white/5">
                 {project.github ? (
-                  <>
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-primary text-sm py-2.5 px-4 flex-1"
-                    >
-                      <ExternalLink size={16} />
-                      View Project
-                    </a>
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-secondary text-sm py-2.5 px-4"
-                      aria-label="View GitHub"
-                    >
-                      <Github size={16} />
-                    </a>
-                  </>
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary text-sm py-2.5 px-4 flex-1"
+                  >
+                    <Github size={16} />
+                    View on GitHub
+                  </a>
                 ) : (
                   <div className="flex-1 text-center text-sm text-gray-600 py-2.5">
                     GitHub link coming soon

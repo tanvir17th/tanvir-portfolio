@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   Mail,
@@ -40,6 +40,9 @@ export default function Contact() {
     event.preventDefault();
     if (!validate()) return;
 
+    const body = `${form.message}\n\n— ${form.name} (${form.email})`;
+    window.location.href = `mailto:${personal.email}?subject=${encodeURIComponent(form.subject)}&body=${encodeURIComponent(body)}`;
+
     setSubmitted(true);
     setForm({ name: '', email: '', subject: '', message: '' });
     setTimeout(() => setSubmitted(false), 5000);
@@ -50,6 +53,7 @@ export default function Contact() {
     { icon: Phone, label: 'Phone', value: personal.phone, href: `tel:${personal.phone.replace(/\s/g, '')}` },
     { icon: Linkedin, label: 'LinkedIn', value: 'md-tanvir-ahamed', href: personal.socials.linkedin },
     { icon: Github, label: 'GitHub', value: 'tanvir17th', href: personal.socials.github },
+    { icon: MessageCircle, label: 'WhatsApp', value: personal.phone, href: personal.socials.whatsapp },
   ];
 
   return (
@@ -134,13 +138,13 @@ export default function Contact() {
             </div>
 
             <div className="grid sm:grid-cols-2 gap-4 mb-4">
-              {contactItems.map((item) => (
+              {contactItems.map((item, index) => (
                 <a
                   key={item.label}
                   href={item.href}
                   target={item.href.startsWith('http') ? '_blank' : undefined}
                   rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className="group flex items-center gap-3 rounded-2xl border border-white/5 bg-ink-800/40 px-3 py-3 hover:border-electric-500/30 hover:bg-ink-700/40 transition-all duration-300"
+                  className={`${index === contactItems.length - 1 && contactItems.length % 2 === 1 ? 'sm:col-span-2 ' : ''}group flex items-center gap-3 rounded-2xl border border-white/5 bg-ink-800/40 px-3 py-3 hover:border-electric-500/30 hover:bg-ink-700/40 transition-all duration-300`}
                 >
                   <div className="w-9 h-9 rounded-xl bg-electric-500/10 flex items-center justify-center text-electric-400 group-hover:text-electric-300 transition-colors shrink-0">
                     <item.icon size={17} />
@@ -160,8 +164,9 @@ export default function Contact() {
               </div>
               <FormField label="Subject" value={form.subject} onChange={(value) => handleChange('subject', value)} error={errors.subject} placeholder="What is this about?" />
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1.5">Message</label>
+                <label htmlFor="contact-message" className="block text-sm font-medium text-gray-300 mb-1.5">Message</label>
                 <textarea
+                  id="contact-message"
                   value={form.message}
                   onChange={(event) => handleChange('message', event.target.value)}
                   rows={4}
@@ -171,8 +176,13 @@ export default function Contact() {
                 {errors.message && <p className="text-xs text-red-400 mt-1">{errors.message}</p>}
               </div>
               <button type="submit" disabled={submitted} className="btn-primary w-full disabled:opacity-50">
-                {submitted ? <><CheckCircle2 size={18} /> Message Sent!</> : <><Send size={18} /> Send Message</>}
+                {submitted ? <><CheckCircle2 size={18} /> Opening your email app…</> : <><Send size={18} /> Send Message</>}
               </button>
+              <p className="text-xs text-gray-500 text-center" aria-live="polite">
+                {submitted
+                  ? `Didn't open? Email me directly at ${personal.email}.`
+                  : 'Sends via your email app — your draft opens ready to send.'}
+              </p>
             </form>
           </motion.div>
         </div>
@@ -196,10 +206,12 @@ function FormField({
   placeholder?: string;
   type?: string;
 }) {
+  const id = useId();
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-300 mb-1.5">{label}</label>
+      <label htmlFor={id} className="block text-sm font-medium text-gray-300 mb-1.5">{label}</label>
       <input
+        id={id}
         type={type}
         value={value}
         onChange={(event) => onChange(event.target.value)}

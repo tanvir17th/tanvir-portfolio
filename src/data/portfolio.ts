@@ -7,6 +7,7 @@ export const personal = {
     'I am a Junior Software Quality Assurance Engineer with hands-on experience in manual, API, and automation testing. I collaborate with development teams to design, execute, and maintain test cases, investigate defects, and validate application behavior. I enjoy turning requirements into reliable test coverage and continuously improving quality through practical testing tools and methodologies.',
   email: 'ahamedtanvir93@gmail.com',
   phone: '+880 1792003530',
+  openToWork: true,
   socials: {
     linkedin: 'https://www.linkedin.com/in/md-tanvir-ahamed-330158301/',
     github: 'https://github.com/tanvir17th',
@@ -20,8 +21,8 @@ export const navLinks = [
   { label: 'Experience', href: '#experience' },
   { label: 'Skills', href: '#skills' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Certifications', href: '#certifications' },
   { label: 'Education', href: '#education' },
+  { label: 'Certifications', href: '#certifications' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -86,7 +87,7 @@ export const skillCategories = [
   {
     title: 'Tools',
     icon: 'Wrench',
-    skills: ['Jira', 'Git', 'GitHub', 'Postman', 'Newman', 'Playwright', 'Selenium IDE', 'VS Code'],
+    skills: ['Jira', 'Git', 'GitHub', 'Selenium IDE', 'VS Code'],
   },
   {
     title: 'Databases',

@@ -19,10 +19,12 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-electric-500/10 border border-electric-500/20 mb-6">
-              <span className="w-2 h-2 rounded-full bg-electric-400 animate-pulse" />
-              <span className="text-sm text-electric-300 font-medium">Open to Work</span>
-            </div>
+            {personal.openToWork && (
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-electric-500/10 border border-electric-500/20 mb-6">
+                <span className="w-2 h-2 rounded-full bg-electric-400 animate-pulse" />
+                <span className="text-sm text-electric-300 font-medium">Open to Work</span>
+              </div>
+            )}
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-4 text-shadow-glow">
               {personal.name}
@@ -125,6 +127,8 @@ function AnimatedBackground() {
 
     let particles: Particle[] = [];
     let animationFrame = 0;
+    let lastTime = 0;
+    let visible = true;
     let mouse = { x: -1000, y: -1000 };
     const beamDistance = 150;
 
@@ -156,14 +160,17 @@ function AnimatedBackground() {
       mouse = { x: -1000, y: -1000 };
     };
 
-    const animate = () => {
+    const animate = (time: number) => {
+      // Normalize movement to 60fps so high-refresh displays don't speed it up.
+      const step = lastTime ? Math.min((time - lastTime) / (1000 / 60), 3) : 1;
+      lastTime = time;
       const width = canvas.clientWidth;
       const height = canvas.clientHeight;
       context.clearRect(0, 0, width, height);
 
       particles.forEach((particle, index) => {
-        particle.x += particle.vx;
-        particle.y += particle.vy;
+        particle.x += particle.vx * step;
+        particle.y += particle.vy * step;
 
         if (particle.x < 0 || particle.x > width) particle.vx *= -1;
         if (particle.y < 0 || particle.y > height) particle.vy *= -1;
@@ -207,20 +214,32 @@ function AnimatedBackground() {
         }
       });
 
-      animationFrame = requestAnimationFrame(animate);
+      if (visible) animationFrame = requestAnimationFrame(animate);
     };
 
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      cancelAnimationFrame(animationFrame);
+      if (visible) {
+        lastTime = 0;
+        animationFrame = requestAnimationFrame(animate);
+      }
+    });
+
     resize();
-    animate();
+    observer.observe(canvas);
     window.addEventListener('resize', resize);
     window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseleave', handleMouseLeave);
+    window.addEventListener('scroll', handleMouseLeave, { passive: true });
+    document.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
       cancelAnimationFrame(animationFrame);
+      observer.disconnect();
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener('scroll', handleMouseLeave);
+      document.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, []);
 
