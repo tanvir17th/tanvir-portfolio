@@ -46,6 +46,12 @@ export default {
         'fade-in': 'fadeIn 0.8s ease-out forwards',
         'scroll-down': 'scrollDown 2s ease-in-out infinite',
         'gradient-pan': 'gradientPan 6s ease-in-out infinite',
+        'qa-rise': 'qaRise linear infinite',
+        'qa-sway': 'qaSway ease-in-out infinite alternate',
+        'qa-bug-out': 'qaBugOut linear infinite',
+        'qa-check-in': 'qaCheckIn linear infinite',
+        'qa-fix-ping': 'qaFixPing linear infinite',
+        'qa-scan': 'qaScan 16s cubic-bezier(0.45, 0, 0.55, 1) infinite',
       },
       keyframes: {
         float: {
@@ -63,6 +69,35 @@ export default {
         fadeIn: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
+        },
+        qaRise: {
+          '0%': { transform: 'translateY(108vh)' },
+          '100%': { transform: 'translateY(-12vh)' },
+        },
+        qaSway: {
+          '0%': { transform: 'translateX(-18px) rotate(-8deg)' },
+          '100%': { transform: 'translateX(18px) rotate(8deg)' },
+        },
+        // Bug and check share the rise duration, so the bug "gets fixed" halfway up the screen.
+        qaBugOut: {
+          '0%, 46%': { opacity: '1', transform: 'scale(1) rotate(0deg)' },
+          '54%, 100%': { opacity: '0', transform: 'scale(0.3) rotate(120deg)' },
+        },
+        qaCheckIn: {
+          '0%, 50%': { opacity: '0', transform: 'scale(0.3)' },
+          '57%': { opacity: '1', transform: 'scale(1.25)' },
+          '62%, 100%': { opacity: '1', transform: 'scale(1)' },
+        },
+        qaFixPing: {
+          '0%, 49%': { opacity: '0', transform: 'scale(0.4)' },
+          '52%': { opacity: '0.7', transform: 'scale(0.8)' },
+          '62%, 100%': { opacity: '0', transform: 'scale(2.6)' },
+        },
+        qaScan: {
+          '0%': { transform: 'translateY(-15vh)', opacity: '0' },
+          '5%': { opacity: '1' },
+          '55%': { transform: 'translateY(110vh)', opacity: '1' },
+          '56%, 100%': { transform: 'translateY(110vh)', opacity: '0' },
         },
         gradientPan: {
           '0%, 100%': { backgroundPosition: '0% 50%' },

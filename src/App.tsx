@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import ScrollProgress from '@/components/ScrollProgress';
+import QABackground from '@/components/QABackground';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
@@ -29,6 +30,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-ink-950 text-gray-300 overflow-x-hidden">
+      <QABackground />
       <ScrollProgress />
       <Navbar />
       <main>
