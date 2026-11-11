@@ -34,7 +34,8 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        display: ['Sora', '"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
       },
       animation: {
@@ -44,6 +45,7 @@ export default {
         'dash': 'dash 20s linear infinite',
         'fade-in': 'fadeIn 0.8s ease-out forwards',
         'scroll-down': 'scrollDown 2s ease-in-out infinite',
+        'gradient-pan': 'gradientPan 6s ease-in-out infinite',
       },
       keyframes: {
         float: {
@@ -61,6 +63,10 @@ export default {
         fadeIn: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
+        },
+        gradientPan: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
         },
         scrollDown: {
           '0%, 100%': { transform: 'translateY(0)', opacity: '0.4' },

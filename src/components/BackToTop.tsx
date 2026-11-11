@@ -21,7 +21,7 @@ export default function BackToTop() {
           exit={{ opacity: 0, y: 16 }}
           transition={{ duration: 0.2 }}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-6 right-6 z-40 w-11 h-11 rounded-xl bg-electric-600 text-white flex items-center justify-center shadow-lg shadow-electric-600/30 hover:bg-electric-500 hover:-translate-y-0.5 transition-all duration-300"
+          className="btn-primary fixed bottom-6 right-6 z-40 w-11 h-11 !p-0"
           aria-label="Back to top"
         >
           <ArrowUp size={20} />

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -11,8 +11,13 @@
   }
 
   body {
-    @apply bg-ink-950 text-gray-300 antialiased;
-    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    @apply bg-ink-950 text-gray-300 antialiased font-sans;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display tracking-tight;
   }
 
   ::selection {
@@ -39,7 +44,19 @@
   }
 
   .glass-card-hover {
-    @apply transition-all duration-300 hover:border-electric-500/40 hover:bg-ink-800/60 hover:-translate-y-1;
+    @apply relative isolate transition-all duration-300 hover:border-electric-500/40 hover:bg-ink-800/60 hover:-translate-y-1 hover:shadow-[0_18px_40px_-20px_rgba(59,130,246,0.45)];
+  }
+
+  /* Cursor spotlight; --mx/--my are set by the pointer listener in App. */
+  .glass-card-hover::before {
+    content: '';
+    @apply pointer-events-none absolute inset-0 -z-10 opacity-0 transition-opacity duration-500;
+    border-radius: inherit;
+    background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(96, 165, 250, 0.13), transparent 45%);
+  }
+
+  .glass-card-hover:hover::before {
+    @apply opacity-100;
   }
 
   .section-padding {
@@ -55,19 +72,56 @@
   }
 
   .text-gradient {
-    @apply bg-gradient-to-r from-electric-400 via-electric-300 to-accent-400 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-electric-400 via-electric-300 to-accent-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient-pan motion-reduce:animate-none;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-medium text-white bg-electric-600 hover:bg-electric-500 transition-all duration-300 hover:shadow-lg hover:shadow-electric-500/30 hover:-translate-y-0.5;
+    @apply relative isolate inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl overflow-hidden
+      font-semibold text-white tracking-wide
+      bg-gradient-to-r from-electric-600 via-electric-500 to-accent-600 bg-[length:200%_100%] bg-left
+      shadow-[0_8px_24px_-10px_rgba(59,130,246,0.7),inset_0_1px_0_rgba(255,255,255,0.22)]
+      transition-all duration-500 ease-out
+      hover:bg-right hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-12px_rgba(139,92,246,0.75),inset_0_1px_0_rgba(255,255,255,0.28)]
+      active:translate-y-0 active:scale-[0.97]
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric-300 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950
+      disabled:pointer-events-none;
+  }
+
+  /* Light sweep across the button on hover. */
+  .btn-primary::after {
+    content: '';
+    @apply pointer-events-none absolute inset-y-0 -left-full w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/30 to-transparent;
+    transition: left 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .btn-primary:hover::after {
+    left: 150%;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-medium text-gray-200 bg-ink-700/60 border border-white/10 hover:border-electric-500/40 hover:bg-ink-600/60 transition-all duration-300 hover:-translate-y-0.5;
+    @apply relative isolate inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl
+      font-semibold text-gray-200 tracking-wide
+      bg-white/[0.03] border border-white/10 backdrop-blur-md
+      shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]
+      transition-all duration-300 ease-out
+      hover:text-white hover:border-electric-400/50 hover:bg-electric-500/10 hover:-translate-y-0.5 hover:shadow-[0_12px_30px_-14px_rgba(59,130,246,0.6),inset_0_1px_0_rgba(255,255,255,0.1)]
+      active:translate-y-0 active:scale-[0.97]
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric-300 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950;
+  }
+
+  .btn-primary svg,
+  .btn-secondary svg {
+    @apply transition-transform duration-300 ease-out;
+  }
+
+  .btn-primary:hover svg,
+  .btn-secondary:hover svg {
+    @apply -translate-y-px scale-110;
   }
 
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-medium text-gray-400 hover:text-electric-300 transition-all duration-300;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-medium text-gray-400 hover:text-electric-300 transition-all duration-300
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric-300;
   }
 
   .badge {
